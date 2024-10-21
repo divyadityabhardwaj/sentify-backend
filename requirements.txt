@@ -3,3 +3,4 @@ flask-cors
 google-api-python-client
 nltk
 python-dotenv
+gunicorn==20.1.0
