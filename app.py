@@ -1,4 +1,3 @@
-# backend_sentify/app.py
 from flask import Flask, request, jsonify
 from googleapiclient.discovery import build
 from nltk.sentiment.vader import SentimentIntensityAnalyzer  # Import VADER
@@ -6,8 +5,10 @@ from flask_cors import CORS
 import re
 import os
 from dotenv import load_dotenv  # Import dotenv
+import nltk
 
-load_dotenv()  # Load environment variables from .env file
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -18,8 +19,11 @@ CORS(app)
 API_KEY = os.getenv('YOUTUBE_API_KEY')  # Get API key from environment variable
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
+# Download VADER lexicon for sentiment analysis
+nltk.download('vader_lexicon')
+
 # Initialize the VADER sentiment analyzer
-sia = SentimentIntensityAnalyzer()  # Initialize VADER
+sia = SentimentIntensityAnalyzer()
 
 def get_youtube_comments(video_id):
     comments = []
